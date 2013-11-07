@@ -2,6 +2,7 @@
 
 import argparse
 import subprocess
+import sys
 import urllib
 
 parser = argparse.ArgumentParser(description="Send HipChat notifications")
@@ -11,6 +12,9 @@ parser.add_argument('--message', required=True)
 parser.add_argument('--auth-token', required=True)
 
 args = parser.parse_args()
+
+if args.message == "-":
+    args.message = sys.stdin.read()
 
 hipchat_data = urllib.urlencode(vars(args))
 
